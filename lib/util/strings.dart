@@ -8,4 +8,7 @@ class Strings {
   /// meals page
   static const String failedToFetchMeals = 'Failed to fetch meals';
   static const String notEnoughData = 'Not Enough Data ';
+
+  /// meal detail page
+  static const String failedToFetchMealDetail = 'Failed to fetch meal detail';
 }

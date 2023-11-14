@@ -1,6 +1,7 @@
 enum Pages {
   home,
   meals,
+  mealDetails,
   notFound,
 }
 
@@ -11,6 +12,8 @@ extension PagesX on Pages {
         return '/';
       case Pages.meals:
         return '/meals';
+      case Pages.mealDetails:
+        return '${Pages.meals.toPath}/meal-details';
       case Pages.notFound:
       default:
         return '/not-found';
@@ -23,6 +26,8 @@ extension PagesX on Pages {
         return 'Home';
       case Pages.meals:
         return 'Meals';
+      case Pages.mealDetails:
+        return 'Meal Details';
       case Pages.notFound:
       default:
         return 'Not Found';

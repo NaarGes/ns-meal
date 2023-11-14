@@ -52,6 +52,7 @@ class MealsPage extends StatelessWidget {
               padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 24),
               itemBuilder: (BuildContext context, int index) {
                 return ListTile(
+                  onTap: () => controller.goToMealDetail(controller.meals[index].idMeal),
                   contentPadding: const EdgeInsets.symmetric(vertical: 4),
                   title: Text(controller.meals[index].strMeal ?? Strings.emptyString),
                   leading: CachedNetworkImage(

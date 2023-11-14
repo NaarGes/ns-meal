@@ -1,39 +1,40 @@
 import 'package:get/get.dart';
-import 'package:ns_meal/config/routes/pages.dart';
 import 'package:ns_meal/data/remote/core/dio_exceptions.dart';
-import 'package:ns_meal/data/remote/model/meal.model.dart';
+import 'package:ns_meal/data/remote/model/meal_detail.model.dart';
 import 'package:ns_meal/data/remote/repository/meal_repository.dart';
 import 'package:ns_meal/util/extension/controller.dart';
 import 'package:ns_meal/util/strings.dart';
 
-class MealsController extends GetxController {
+class MealDetailController extends GetxController {
+
   RxBool loading = false.obs;
   RxBool hasError = false.obs;
-  RxList<Meal> meals = <Meal>[].obs;
+  RxList<MealDetail> details = <MealDetail>[].obs;
 
   final MealRepository _repository = MealRepository();
-  late String category;
+
+  late String mealId;
 
   @override
   void onInit() {
-    category = Get.parameters['category'] ?? Strings.emptyString;
-    getMeals();
+    mealId = Get.parameters['meal'] ?? Strings.emptyString;
+    getMealDetail();
     super.onInit();
   }
 
-  Future<void> getMeals() async {
-    if (category.isEmpty) {
+  Future<void> getMealDetail() async {
+    if (mealId.isEmpty) {
       hasError.value = true;
       return;
     }
     try {
       loading.value = true;
-      meals.value = await _repository.getMealsOfCategory(category);
+      details.value = await _repository.getMealDetail(mealId);
     } on DioExceptions catch (e) {
       showErrorSnackBar(e.message);
       hasError.value = true;
     } catch (e) {
-      showErrorSnackBar(Strings.failedToFetchMeals);
+      showErrorSnackBar(Strings.failedToFetchMealDetail);
       hasError.value = true;
     } finally {
       loading.value = false;
@@ -42,14 +43,6 @@ class MealsController extends GetxController {
 
   void retry() {
     hasError.value = false;
-    getMeals();
-  }
-
-  void goToMealDetail(String? idMeal) {
-    if (idMeal == null) {
-      showErrorSnackBar(Strings.notEnoughData);
-      return;
-    }
-    Get.toNamed(Pages.mealDetails.toPath, parameters: {'meal': idMeal});
+    getMealDetail();
   }
 }
