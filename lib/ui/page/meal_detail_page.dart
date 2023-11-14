@@ -58,7 +58,46 @@ class MealDetailPage extends StatelessWidget {
                                 )
 
                               /// details
-                              : Text(controller.details[0].strMeal ?? Strings.emptyString),
+                              : SingleChildScrollView(
+                                  padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+                                  child: Column(
+                                    crossAxisAlignment: CrossAxisAlignment.start,
+                                    children: [
+                                      if (controller.details[0].strInstructions != null)
+                                        Text(
+                                          'Instructions',
+                                          style: Theme.of(context).textTheme.titleMedium,
+                                        ),
+                                      if (controller.details[0].strInstructions != null)
+                                        const SizedBox(height: 16),
+                                      if (controller.details[0].strInstructions != null)
+                                        Text(controller.details[0].strInstructions!),
+                                      const SizedBox(height: 16),
+                                      if (controller.details[0].ingredients != null &&
+                                          controller.details[0].ingredients!.isNotEmpty)
+                                        Text(
+                                          'Ingredients ',
+                                          style: Theme.of(context).textTheme.titleMedium,
+                                        ),
+                                      ListView.builder(
+                                        padding:
+                                        const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+                                        physics: const NeverScrollableScrollPhysics(),
+                                        shrinkWrap: true,
+                                        itemCount: controller.details[0].ingredients?.length,
+                                        itemBuilder: (BuildContext context, int index) {
+                                          return Row(
+                                            children: [
+                                              Text(controller.details[0].ingredients![index]),
+                                              const Spacer(),
+                                              Text(controller.details[0].measures![index]),
+                                            ],
+                                          );
+                                        },
+                                      ),
+                                    ],
+                                  ),
+                                ),
                 ),
               ],
             ),
