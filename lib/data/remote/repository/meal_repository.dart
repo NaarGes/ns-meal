@@ -3,6 +3,7 @@ import 'package:logger/logger.dart';
 import 'package:ns_meal/data/remote/core/dio_client.dart';
 import 'package:ns_meal/data/remote/core/endpoints.dart';
 import 'package:ns_meal/data/remote/model/category.model.dart';
+import 'package:ns_meal/data/remote/model/meal.model.dart';
 
 class MealRepository {
   final DioClient _dioClient = DioClient();
@@ -15,6 +16,22 @@ class MealRepository {
         categories.add(Category.fromJson(json));
       });
       return categories;
+    } catch (e) {
+      Logger().e(e);
+      rethrow;
+    }
+  }
+
+  Future<List<Meal>> getMealsOfCategory(String strCategory) async {
+    try {
+      Response response = await _dioClient.get(Endpoints.meals, queryParameters: {
+        'c': strCategory,
+      });
+      List<Meal> meals = [];
+      response.data['meals']?.forEach((json) {
+        meals.add(Meal.fromJson(json));
+      });
+      return meals;
     } catch (e) {
       Logger().e(e);
       rethrow;
