@@ -1,6 +1,6 @@
 # ns_meal
 
-TheMealDB sample flutter application
+Sample flutter application using [TheMealDb](https://www.themealdb.com/) apis
 
 ## TODO
 - Refresh Lists
