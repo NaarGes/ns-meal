@@ -1,9 +1,8 @@
-import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:ns_meal/config/routes/pages.dart';
-import 'package:ns_meal/config/theme/assets.dart';
 import 'package:ns_meal/controller/home_controller.dart';
+import 'package:ns_meal/ui/component/app_image.dart';
 import 'package:ns_meal/ui/component/reload_button.dart';
 import 'package:ns_meal/util/strings.dart';
 
@@ -52,13 +51,13 @@ class HomePage extends StatelessWidget {
               padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 24),
               itemBuilder: (BuildContext context, int index) {
                 return ListTile(
-                  onTap: () => controller.goToMeals(controller.categories[index].strCategory),
+                  onTap: () => controller.goToMeals(controller.categories[index]),
                   contentPadding: const EdgeInsets.symmetric(vertical: 4),
                   title: Text(controller.categories[index].strCategory ?? Strings.emptyString),
-                  leading: CachedNetworkImage(
-                    imageUrl: controller.categories[index].strCategoryThumb ?? Strings.emptyString,
-                    placeholder: (context, url) => Image.asset(Assets.plate),
-                    errorWidget: (context, url, error) => Image.asset(Assets.plate),
+                  leading: AppImage(
+                    url: controller.categories[index].strCategoryThumb ?? Strings.emptyString,
+                    tag: controller.categories[index].idCategory ?? Strings.emptyString,
+                    borderRadius: BorderRadius.circular(8),
                   ),
                 );
               },

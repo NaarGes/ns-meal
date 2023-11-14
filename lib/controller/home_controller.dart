@@ -38,11 +38,14 @@ class HomeController extends GetxController {
     getCategories();
   }
 
-  void goToMeals(String? strCategory) {
-    if (strCategory == null) {
+  void goToMeals(Category category) {
+    if (category.strCategory == null) {
       showErrorSnackBar(Strings.notEnoughData);
       return;
     }
-    Get.toNamed(Pages.meals.toPath, parameters: {'category': strCategory});
+    Get.toNamed(
+      Pages.meals.toPath,
+      arguments: category,
+    );
   }
 }

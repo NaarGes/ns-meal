@@ -1,5 +1,6 @@
 import 'package:get/get.dart';
 import 'package:ns_meal/data/remote/core/dio_exceptions.dart';
+import 'package:ns_meal/data/remote/model/meal.model.dart';
 import 'package:ns_meal/data/remote/model/meal_detail.model.dart';
 import 'package:ns_meal/data/remote/repository/meal_repository.dart';
 import 'package:ns_meal/util/extension/controller.dart';
@@ -13,23 +14,23 @@ class MealDetailController extends GetxController {
 
   final MealRepository _repository = MealRepository();
 
-  late String mealId;
+  late Meal? meal;
 
   @override
   void onInit() {
-    mealId = Get.parameters['meal'] ?? Strings.emptyString;
+    meal = Get.arguments;
     getMealDetail();
     super.onInit();
   }
 
   Future<void> getMealDetail() async {
-    if (mealId.isEmpty) {
+    if (meal?.idMeal == null) {
       hasError.value = true;
       return;
     }
     try {
       loading.value = true;
-      details.value = await _repository.getMealDetail(mealId);
+      details.value = await _repository.getMealDetail(meal!.idMeal!);
     } on DioExceptions catch (e) {
       showErrorSnackBar(e.message);
       hasError.value = true;

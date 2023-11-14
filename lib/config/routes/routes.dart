@@ -19,22 +19,21 @@ class Routes {
         transition: Transition.native,
         children: [
           GetPage(
-              name: Pages.meals.toPath,
-              page: () => const MealsPage(),
-              binding: BindingsBuilder(() {
-                Get.put(MealsController());
-              }),
-              transition: Transition.native,
-              children: [
-                GetPage(
-                  name: Pages.mealDetails.toPath,
-                  page: () => const MealDetailPage(),
-                  binding: BindingsBuilder(() {
-                    Get.put(MealDetailController());
-                  }),
-                  transition: Transition.native,
-                ),
-              ]),
+            name: Pages.meals.toPath,
+            page: () => const MealsPage(),
+            binding: BindingsBuilder(() {
+              Get.put(MealsController());
+            }),
+            transition: Transition.native,
+          ),
+          GetPage(
+            name: Pages.mealDetails.toPath,
+            page: () => const MealDetailPage(),
+            binding: BindingsBuilder(() {
+              Get.put(MealDetailController());
+            }),
+            transition: Transition.native,
+          ),
         ]),
   ];
 

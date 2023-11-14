@@ -1,6 +1,7 @@
 import 'package:get/get.dart';
 import 'package:ns_meal/config/routes/pages.dart';
 import 'package:ns_meal/data/remote/core/dio_exceptions.dart';
+import 'package:ns_meal/data/remote/model/category.model.dart';
 import 'package:ns_meal/data/remote/model/meal.model.dart';
 import 'package:ns_meal/data/remote/repository/meal_repository.dart';
 import 'package:ns_meal/util/extension/controller.dart';
@@ -12,23 +13,23 @@ class MealsController extends GetxController {
   RxList<Meal> meals = <Meal>[].obs;
 
   final MealRepository _repository = MealRepository();
-  late String category;
+  late Category? category;
 
   @override
   void onInit() {
-    category = Get.parameters['category'] ?? Strings.emptyString;
+    category = Get.arguments;
     getMeals();
     super.onInit();
   }
 
   Future<void> getMeals() async {
-    if (category.isEmpty) {
+    if (category?.strCategory == null) {
       hasError.value = true;
       return;
     }
     try {
       loading.value = true;
-      meals.value = await _repository.getMealsOfCategory(category);
+      meals.value = await _repository.getMealsOfCategory(category!.strCategory!);
     } on DioExceptions catch (e) {
       showErrorSnackBar(e.message);
       hasError.value = true;
@@ -45,11 +46,14 @@ class MealsController extends GetxController {
     getMeals();
   }
 
-  void goToMealDetail(String? idMeal) {
-    if (idMeal == null) {
+  void goToMealDetail(Meal meal) {
+    if (meal.idMeal == null) {
       showErrorSnackBar(Strings.notEnoughData);
       return;
     }
-    Get.toNamed(Pages.mealDetails.toPath, parameters: {'meal': idMeal});
+    Get.toNamed(
+      Pages.mealDetails.toPath,
+      arguments: meal,
+    );
   }
 }

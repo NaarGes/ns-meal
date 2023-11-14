@@ -13,7 +13,7 @@ extension PagesX on Pages {
       case Pages.meals:
         return '/meals';
       case Pages.mealDetails:
-        return '${Pages.meals.toPath}/meal-details';
+        return '/meal-details';
       case Pages.notFound:
       default:
         return '/not-found';
