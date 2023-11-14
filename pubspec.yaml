@@ -11,9 +11,18 @@ dependencies:
   flutter:
     sdk: flutter
 
+  # ui
   cupertino_icons: ^1.0.6
+  shimmer: ^3.0.0
+
+  # data
   get: ^4.6.5
   dio: ^5.3.3
+
+  # util
+  logger: ^2.0.2+1
+  font_awesome_flutter: ^10.6.0
+  cached_network_image: ^3.3.0
 
 dev_dependencies:
   flutter_test:
@@ -22,3 +31,5 @@ dev_dependencies:
 
 flutter:
   uses-material-design: true
+  assets:
+    - assets/images/

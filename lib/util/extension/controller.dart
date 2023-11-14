@@ -1,6 +1,7 @@
-import 'package:flutter/widgets.dart';
+import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:ns_meal/config/theme/colors.dart';
+import 'package:ns_meal/util/strings.dart';
 
 extension ControllerX on GetxController {
   void showSnackBar(String message) {
@@ -15,11 +16,29 @@ extension ControllerX on GetxController {
     );
   }
 
-  showErrorToast(String message) {
-    // TODO implement
+  showErrorSnackBar(String? message) {
+    // TODO style it
+    Get.showSnackbar(
+      GetSnackBar(
+        duration: const Duration(seconds: 2),
+        messageText: Text(
+          message ?? Strings.emptyString,
+          style: const TextStyle(color: Palette.white),
+        ),
+      ),
+    );
   }
 
-  showSucceedToast(String message) {
-    // TODO implement
+  showSucceedSnackBar(String? message) {
+    // TODO style it
+    Get.showSnackbar(
+      GetSnackBar(
+        duration: const Duration(seconds: 2),
+        messageText: Text(
+          message ?? Strings.emptyString,
+          style: const TextStyle(color: Palette.white),
+        ),
+      ),
+    );
   }
 }
